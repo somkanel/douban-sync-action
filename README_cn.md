@@ -1,5 +1,7 @@
 # Douban Sync Action 🎬
 
+[**🇨🇳 简体中文**](./README_zh.md) | [**🇬🇧 English**](./README.md)
+
 一个现代、快速且稳定的 GitHub Action，用于将你的豆瓣（Douban）标记数据同步并保存为 JSON 文件。
 
 本项目受到 [lizheming/doumark-action](https://github.com/lizheming/doumark-action) 的启发并进行了彻底重写。它摒弃了过时的依赖，运行在现代的 Python 环境上，并且 100% 保留了原始的数据结构，确保你现有的博客或展示页面不会受到任何影响，实现零成本迁移。
