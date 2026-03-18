@@ -1,5 +1,7 @@
 # Douban Sync Action 🎬
 
+[**🇨🇳 简体中文**](./README_zh.md) | [**🇬🇧 English**](./README.md)
+
 A modern, fast, and stable GitHub Action to sync your Douban (豆瓣) marked data to JSON files. 
 
 This project is inspired by and rewritten from [lizheming/doumark-action](https://github.com/lizheming/doumark-action). It drops legacy dependencies, runs on a modern Python environment, and preserves 100% of the original data structure, ensuring zero downstream breakage for your blogs or display pages.
