@@ -10,9 +10,8 @@ This project is inspired by and rewritten from [lizheming/doumark-action](https:
 
 - **Full Synchronization**: Automatically paginates and fetches all your marked records (even 800+ items).
 - **100% Backward Compatible**: Preserves the exact same JSON structure as the original `doumark-action`, including redundant fields and color schemes.
-- **Built-in Image Proxy**: Automatically injects `cover_url` using `dou.img.lithub.cc` to bypass Douban's image anti-hotlinking.
 - **Modern & Fast**: Built with Python 3.12 and `httpx`, abandoning outdated Node.js legacy code.
-- **Anti-Ban Protection**: Implements polite request delays and proper headers to prevent account bans.
+- **Stable Strategy**: Implements polite request intervals and proper HTTP configurations for stable, long-term synchronization.
 
 ## Usage 🚀
 
@@ -96,6 +95,10 @@ This rewrite:
 * Solves the `Node.js 20 actions are deprecated` warning.
 * Fixes the `Unexpected input 'cookie'` error by moving cookies to environment variables.
 * Uses Python instead of Shell/Docker nesting for easier future maintenance.
+
+## Disclaimer
+
+This action is for personal data backup only. Please use it reasonably and follow the platform's terms of service.
 
 ## License 📄
 
