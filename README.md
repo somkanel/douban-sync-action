@@ -59,7 +59,7 @@ jobs:
           message: "chore: sync douban movie data"
           add: "./data"
           default_author: github_actions
-
+```
 
 
 
