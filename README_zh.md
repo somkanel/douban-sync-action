@@ -44,7 +44,7 @@ jobs:
 
       # 运行豆瓣同步 Action
       - name: Movie Sync
-        uses: somkanel/douban-sync-action@main
+        uses: somkanel/douban-sync-action@v1.0.0
         with:
           id: sampleid               # 你的豆瓣用户 ID
           type: movie                # 数据类型（目前支持 'movie'）
