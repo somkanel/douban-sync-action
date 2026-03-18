@@ -44,7 +44,7 @@ jobs:
 
       # Run Douban Sync Action
       - name: Movie Sync
-        uses: somkanel/douban-sync-action@main
+        uses: somkanel/douban-sync-action@v1.0.0
         with:
           id: sampleid               # Your Douban user ID
           type: movie                # Currently supports 'movie'
