@@ -1,5 +1,5 @@
 name: 'Douban Sync Action'
-description: 'Sync Douban movie marks to JSON file (New Version)'
+description: 'Sync Douban movie marks to JSON file'
 author: 'somkanel'
 
 inputs:
@@ -19,14 +19,7 @@ inputs:
     description: 'Output directory'
     required: false
     default: './data'
-  count:
-    description: 'Number of items to fetch'
-    required: false
-    default: '30'
 
 runs:
   using: 'docker'
   image: 'Dockerfile'
-
-env:
-  DOUBAN_COOKIE: ${{ secrets.DOUBAN_COOKIE }}
