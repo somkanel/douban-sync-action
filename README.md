@@ -53,13 +53,21 @@ jobs:
         env:
           DOUBAN_COOKIE: ${{ secrets.DOUBAN_COOKIE }} # Your Douban Cookie
 
-      # Commit the synced data back to your repo
+      # Use native Git commands to commit and push
       - name: Commit and Push
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: "chore: sync douban movie data"
-          add: "./data"
-          default_author: github_actions
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add ./data
+          
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "chore: sync douban movie data"
+            git push
+            echo "Changes pushed successfully."
+          else
+            echo "No changes to commit."
+          fi
+
 ```
 
 
