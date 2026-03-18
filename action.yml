@@ -1,0 +1,33 @@
+name: 'Douban Sync Action'
+description: 'Sync Douban movie marks to JSON file'
+author: 'Your Name'
+
+inputs:
+  id:
+    description: 'Douban user ID'
+    required: true
+  type:
+    description: 'Type of data to sync (movie/book/music)'
+    required: false
+    default: 'movie'
+  format:
+    description: 'Output format (json/csv)'
+    required: false
+    default: 'json'
+  dir:
+    description: 'Output directory'
+    required: false
+    default: './data'
+  count:
+    description: 'Number of items to fetch per request'
+    required: false
+    default: '30'
+
+outputs:
+  count:
+    description: 'Number of items synced'
+    value: ${{ steps.sync.outputs.count }}
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
