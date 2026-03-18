@@ -53,15 +53,20 @@ jobs:
         env:
           DOUBAN_COOKIE: ${{ secrets.DOUBAN_COOKIE }} # 你的豆瓣 Cookie
 
-      # 将同步的数据提交并推送到你的仓库
+      # 使用原生 Git 命令提交并推送数据
       - name: Commit and Push
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: "chore: sync douban movie data"
-          add: "./data"
-          default_author: github_actions
-
-```
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add ./data
+          
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "chore: sync douban movie data"
+            git push
+            echo "Changes pushed successfully."
+          else
+            echo "No changes to commit."
+          fi
 
 ## 输入参数 ⚙️
 
