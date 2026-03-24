@@ -8,6 +8,7 @@ class DoubanClient:
     def __init__(self, user_id: str, cookie: str):
         self.user_id = user_id
         self.cookie = cookie.strip()
+        self.total = 0  # 新增：用于记录 API 宣称的总数
         self.headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
             "Referer": "https://www.douban.com/",
@@ -19,7 +20,7 @@ class DoubanClient:
         all_marks = []
         start = 0
         count = 50  # 每次拉取 50 条，避免过于频繁
-        total = None
+        is_first_page = True
 
         print(f"开始全量拉取用户 {self.user_id} 的观影记录...")
 
@@ -44,10 +45,11 @@ class DoubanClient:
 
                 data = resp.json()
                 
-                # 第一次请求时获取总数
-                if total is None:
-                    total = data.get("total", 0)
-                    print(f"发现总记录数: {total}")
+                # 第一次请求时获取并保存总数
+                if is_first_page:
+                    self.total = data.get("total", 0)
+                    print(f"发现总记录数: {self.total}")
+                    is_first_page = False
 
                 interests = data.get("interests", [])
                 if not interests:
@@ -55,7 +57,6 @@ class DoubanClient:
 
                 # ⚠️ 关键：直接保存原始 item，确保格式 100% 一致
                 for item in interests:
-                    # 可以在这里做一些图片域名的替换，如果你之前有用到 dou.img.lithub.cc
                     subject = item.get("subject", {})
                     if "id" in subject:
                         subject["cover_url"] = f"https://dou.img.lithub.cc/movie/{subject['id']}.jpg"
@@ -64,8 +65,8 @@ class DoubanClient:
 
                 start += count
                 
-                # 如果已经拉完，退出
-                if start >= total:
+                # 如果已经拉完 API 宣称的总数，退出
+                if start >= self.total:
                     break
                     
                 # 礼貌性延迟，防止被豆瓣封禁
@@ -100,13 +101,11 @@ def main():
 
     print(f"✅ 同步成功！共保存 {len(all_marks)} 条记录到 {output_path}")
     
-    # 新增差异提示
-    if 'client' in locals() and hasattr(client, 'total') and client.total:
-        diff = client.total - len(all_marks)
-        if diff > 0:
-            print(f"⚠️ 提示: 豆瓣声称有 {client.total} 条记录，但实际只下发了 {len(all_marks)} 条。")
-            print(f"   (相差的 {diff} 条可能是被豆瓣官方隐藏、下架或处于审核状态的敏感条目)")
-
+    # 差异提示逻辑
+    diff = client.total - len(all_marks)
+    if diff > 0:
+        print(f"⚠️ 提示: 豆瓣声称有 {client.total} 条记录，但实际只下发了 {len(all_marks)} 条。")
+        print(f"   (相差的 {diff} 条可能是被豆瓣官方隐藏、下架或处于审核状态的敏感条目)")
 
 
 if __name__ == "__main__":
