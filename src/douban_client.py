@@ -99,6 +99,14 @@ def main():
         json.dump(all_marks, f, ensure_ascii=False, indent=2)
 
     print(f"✅ 同步成功！共保存 {len(all_marks)} 条记录到 {output_path}")
+    
+    # 新增差异提示
+    if 'client' in locals() and hasattr(client, 'total') and client.total:
+        diff = client.total - len(all_marks)
+        if diff > 0:
+            print(f"⚠️ 提示: 豆瓣声称有 {client.total} 条记录，但实际只下发了 {len(all_marks)} 条。")
+            print(f"   (相差的 {diff} 条可能是被豆瓣官方隐藏、下架或处于审核状态的敏感条目)")
+
 
 
 if __name__ == "__main__":
